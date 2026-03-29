@@ -5,17 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wedding Invitation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
-
 <style>
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
   background: linear-gradient(to right, #fff1f2, #ffe4e6);
-  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-/* Center container */
+/* Center button */
 .container {
   display: flex;
   justify-content: center;
@@ -27,12 +25,11 @@ body {
 .ribbon-btn {
   background: #d6336c;
   color: white;
-  padding: 20px 40px;
+  padding: 18px 35px;
   font-size: 20px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  position: relative;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   transition: 0.3s;
 }
@@ -41,60 +38,42 @@ body {
   transform: scale(1.05);
 }
 
-/* Invitation card */
-.card {
-  width: 90%;
-  max-width: 600px;
-  height: 80vh;
-  background: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scaleY(0);
-  transform-origin: top;
-  border-radius: 15px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-  overflow-y: auto;
-  transition: transform 1s ease;
-}
-
-/* Open animation */
-.card.open {
-  transform: translate(-50%, -50%) scaleY(1);
-}
-
-/* Content styling */
-.content {
-  padding: 30px;
-  text-align: center;
-}
-
-h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 48px;
-  color: #d6336c;
-}
-
-h2 {
-  margin-top: 10px;
-  font-weight: normal;
-}
-
-.section {
-  margin: 30px 0;
-}
-
-.fade-in {
+/* Fullscreen overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1s forwards;
+  visibility: hidden;
+  transition: opacity 0.8s ease;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Show overlay */
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Invitation image */
+.invite-img {
+  width: 90%;
+  max-width: 500px;
+  border-radius: 15px;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+/* Animation when opened */
+.overlay.show .invite-img {
+  transform: scale(1);
+  opacity: 1;
 }
 </style>
 </head>
@@ -102,30 +81,16 @@ h2 {
 <body>
 
 <div class="container">
-  <button class="ribbon-btn" onclick="openCard()">🎀 Open Invitation</button>
+  <button class="ribbon-btn" onclick="openInvite()">🎀 Open Invitation</button>
 </div>
 
-<div id="card" class="card">
-  <div class="content">
-    <h1 class="fade-in">You're Invited</h1>
-    <h2 class="fade-in" style="animation-delay:0.3s;">
-      Sagar ❤️ Sumitra
-    </h2>
-
-    <div class="section fade-in" style="animation-delay:0.6s;">
-      <p><strong>Date:</strong> 10 December 2026</p>
-      <p><strong>Venue:</strong> Hyderabad</p>
-    </div>
-
-    <div class="section fade-in" style="animation-delay:0.9s;">
-      <p>Join us to celebrate love, laughter and happily ever after 💍</p>
-    </div>
-  </div>
+<div id="overlay" class="overlay">
+  <img src="invitation.jpg" class="invite-img" alt="Wedding Invitation">
 </div>
 
 <script>
-function openCard() {
-  document.getElementById("card").classList.add("open");
+function openInvite() {
+  document.getElementById("overlay").classList.add("show");
 }
 </script>
 
